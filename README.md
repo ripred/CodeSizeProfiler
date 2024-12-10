@@ -20,6 +20,8 @@ void foo() {
 
 would become:
 ``` cpp
+#include <CodeSizeProfiler.h>
+
 void foo() {
   CodeSize(
     Serial.println("Hello, world");
