@@ -1,13 +1,7 @@
 # CodeSizeProfiler
-Profiler for embedded programming to dynamically determine function, method, and template sizes (expanded) at compile time.
+Profiler for embedded programming to dynamically determine function, method, and template sizes (expanded).
 
 Generates a report of how much flash memory all monitored functions occupy. Very useful for profiling several versions of an implementation for a function, and then selecting the one that requires the smallest amount of flash memory.
-
-Function size determinations are a `constexpr` and thus available at compile time. 
-
-This enables many things such as dynamic compile time template expansion that can stop expanding if the methods or functions would take up more room than some configurable threshold.
-
-Or you could decide dynamically at runtime whether to inline certain function calls or to call them instead, based off of the size of the function.
 
 Easy to Use. Just include the library header file and encose the function body of any functions you want to monitor using the CodeSize(CODE) macro.
 
