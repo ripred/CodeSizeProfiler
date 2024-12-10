@@ -1,70 +1,85 @@
 #include <CodeSizeProfiler.h>
 
-// Define global variables for function sizes
-long foo_size = 0;
-long bar_size = 0;
-long minimal_size = 0;
-long extended_test_size = 0;
-long calibration_size = 0;
-
-void calibrate() {
-    Serial.println("Running calibration...");
-    Wrap({}, calibration_size);
-}
+static bool DebugOutput = false;
 
 void foo() {
-    Serial.println("Running foo...");
+    if (DebugOutput) {
+        Serial.println("Running foo...");
+    }
+
     Wrap({
         asm volatile ("" ::: "memory"); // Prevent optimization
-        Serial.println("Hello, world!");
-    }, foo_size);
+        if (DebugOutput) {
+            Serial.println("Hello, world!");
+        }
+        volatile int result = 42;
+        result += 42;
+    });
 }
 
 void bar() {
-    Serial.println("Running bar...");
+    if (DebugOutput) {
+        Serial.println("Running bar...");
+    }
+
     Wrap({
+        volatile int result = 42;
         for (int i = 0; i < 10; ++i) {
-            Serial.println(i);
+            if (DebugOutput) {
+                Serial.println(i);
+            }
+            result += 42;
         }
-    }, bar_size);
+    });
 }
 
 void minimal() {
-    Serial.println("Running minimal...");
-    Wrap({}, minimal_size); // Minimal code block
+    if (DebugOutput) {
+        Serial.println("Running minimal...");
+    }
+    Wrap({});
 }
 
 void extended_test() {
-    Serial.println("Running extended_test...");
+    if (DebugOutput) {
+        Serial.println("Running extended_test...");
+    }
+
     Wrap({
+        volatile int result = 42;
         for (int i = 0; i < 100; ++i) {
-            Serial.print(i);
+            if (DebugOutput) {
+                Serial.print(i);
+            }
+            result += random(1, 100000L);
         }
-    }, extended_test_size);
+        if (result & 1) {
+            result *= 2;
+        }
+        else {
+            result /= 2;
+        }
+
+    });
 }
 
 void setup() {
     Serial.begin(115200);
-    while (!Serial) {
+    unsigned long start = millis();
+    while (!Serial && (millis() - start) < 1000) {
         // Wait for Serial to initialize
     }
 
+    // Call our functions, which will measure their sizes
     calibrate();
     foo();
     bar();
     minimal();
     extended_test();
 
-    Serial.println("Function Memory Usage Report:");
-    Serial.print("Calibration Size (bytes): ");
-    Serial.println(calibration_size);
-
-    for (int i = 0; i < function_count; ++i) {
-        Serial.print("Function: ");
-        Serial.print(function_sizes[i].name);
-        Serial.print(", Adjusted Size (bytes): ");
-        Serial.println(function_sizes[i].size - calibration_size); // Adjusted size
-    }
+    // Now that we've collected data, we use the report function from the library.
+    // Example: sort by Size in Descending order
+    report(Serial, Size, Descending);
 }
 
 void loop() {

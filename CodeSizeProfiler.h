@@ -5,8 +5,8 @@
 
 // Metadata structure to store function information
 struct FunctionInfo {
-    const char* name;        // Function name
-    long size;               // Function size in bytes (signed)
+    const char* name; // Function name
+    long size;        // Function size in bytes (signed)
 };
 
 // Global metadata array with static allocation size
@@ -17,29 +17,60 @@ struct FunctionInfo {
 extern FunctionInfo function_sizes[MAX_FUNCTIONS];
 extern volatile int function_count;
 
+// We will store the calibration size here as well
+extern long calibration_size;
+
+// Enums for sorting and ordering
+enum SortBy_t { None, Name, Size };
+enum OrderBy_t { Ascending, Descending };
+
 // UNUSED macro to suppress unused variable warnings
 #define UNUSED(A) do { (void)(A); } while(false)
 
 // Debug output macro (enable or disable here)
-#define DEBUG_OUTPUT 1
+#define DEBUG_OUTPUT 0
 #define DebugPrint(msg, value) \
-    do { if (debugMode) { Serial.print(msg); Serial.println(value, HEX); } } while (false)
+    do { if (DEBUG_OUTPUT) { Serial.print(msg); Serial.println(value, HEX); } } while (false)
 
-// Wrap macro for measuring flash memory usage
-#define Wrap(CODE, VARNAME)                              \
-    {                                                    \
+// Internal macros to implement overloading behavior
+#define WRAP_SELECT(_1, _2, NAME, ...) NAME
+
+// Wrap version that takes CODE and a variable (VARNAME)
+#define WRAP_WITH_VAR(CODE, VARNAME)                          \
+    {                                                         \
         static void* func_start##__COUNTER__ = &&func_start##__COUNTER__; \
-        UNUSED(func_start##__COUNTER__);                 \
-        func_start##__COUNTER__:                         \
-        __asm__ volatile("nop\nnop\nnop\nnop\nnop");      \
-        CODE                                             \
-    label##__COUNTER__:                                  \
-        __asm__ volatile("nop\nnop\nnop\nnop\nnop");      \
-        VARNAME = abs((long)((intptr_t)&&label##__COUNTER__ - (intptr_t)func_start##__COUNTER__) - 10);function_sizes[function_count++] = {__FUNCTION__, VARNAME}; \
+        UNUSED(func_start##__COUNTER__);                      \
+        func_start##__COUNTER__:                              \
+        CODE                                                  \
+    label##__COUNTER__:                                       \
+        VARNAME = abs((long)((intptr_t)&&label##__COUNTER__ - (intptr_t)func_start##__COUNTER__)); \
+        function_sizes[function_count++] = {__FUNCTION__, VARNAME}; \
         DebugPrint("Debug: func_start = ", (intptr_t)func_start##__COUNTER__); \
         DebugPrint("Debug: label = ", (intptr_t)&&label##__COUNTER__); \
-        DebugPrint("Debug: size (bytes) = ", VARNAME);   \
+        DebugPrint("Debug: size (bytes) = ", VARNAME);        \
     }
+
+// Wrap version that only takes CODE and does not require a variable
+#define WRAP_NO_VAR(CODE)                                     \
+    {                                                         \
+        static void* func_start##__COUNTER__ = &&func_start##__COUNTER__; \
+        UNUSED(func_start##__COUNTER__);                      \
+        func_start##__COUNTER__:                              \
+        CODE                                                  \
+    label##__COUNTER__:                                       \
+        long temp_size##__COUNTER__ = abs((long)((intptr_t)&&label##__COUNTER__ - (intptr_t)func_start##__COUNTER__)); \
+        function_sizes[function_count++] = {__FUNCTION__, temp_size##__COUNTER__}; \
+        DebugPrint("Debug: func_start = ", (intptr_t)func_start##__COUNTER__); \
+        DebugPrint("Debug: label = ", (intptr_t)&&label##__COUNTER__); \
+        DebugPrint("Debug: size (bytes) = ", temp_size##__COUNTER__); \
+    }
+
+// Main Wrap macro that selects between WRAP_NO_VAR and WRAP_WITH_VAR
+#define Wrap(...) WRAP_SELECT(__VA_ARGS__, WRAP_WITH_VAR, WRAP_NO_VAR)(__VA_ARGS__)
+
+// Reporting function
+void report(Stream &stream, SortBy_t sortby, OrderBy_t orderby = Descending);
+void calibrate();
 
 #endif // CODE_SIZE_PROFILER_H
 
