@@ -3,7 +3,7 @@
 static bool DebugOutput = false;
 
 void foo() {
-    Wrap({
+    Wrap(
         if (DebugOutput) {
             Serial.println("Running foo...");
         }
@@ -13,11 +13,11 @@ void foo() {
         }
         volatile int result = 42;
         result += 42;
-    });
+    );
 }
 
 void bar() {
-    Wrap({
+    Wrap(
         if (DebugOutput) {
             Serial.println("Running bar...");
         }
@@ -28,19 +28,19 @@ void bar() {
             }
             result += 42;
         }
-    });
+    );
 }
 
 void minimal() {
-    Wrap({
+    Wrap(
         if (DebugOutput) {
             Serial.println("Running minimal...");
         }
-    });
+    );
 }
 
 void extended_test() {
-    Wrap({
+    Wrap(
         if (DebugOutput) {
             Serial.println("Running extended_test...");
         }
@@ -58,7 +58,7 @@ void extended_test() {
             result /= 2;
         }
 
-    });
+    );
 }
 
 void setup() {
