@@ -3,11 +3,10 @@
 static bool DebugOutput = false;
 
 void foo() {
-    if (DebugOutput) {
-        Serial.println("Running foo...");
-    }
-
     Wrap({
+        if (DebugOutput) {
+            Serial.println("Running foo...");
+        }
         asm volatile ("" ::: "memory"); // Prevent optimization
         if (DebugOutput) {
             Serial.println("Hello, world!");
@@ -18,11 +17,10 @@ void foo() {
 }
 
 void bar() {
-    if (DebugOutput) {
-        Serial.println("Running bar...");
-    }
-
     Wrap({
+        if (DebugOutput) {
+            Serial.println("Running bar...");
+        }
         volatile int result = 42;
         for (int i = 0; i < 10; ++i) {
             if (DebugOutput) {
@@ -34,18 +32,18 @@ void bar() {
 }
 
 void minimal() {
-    if (DebugOutput) {
-        Serial.println("Running minimal...");
-    }
-    Wrap({});
+    Wrap({
+        if (DebugOutput) {
+            Serial.println("Running minimal...");
+        }
+    });
 }
 
 void extended_test() {
-    if (DebugOutput) {
-        Serial.println("Running extended_test...");
-    }
-
     Wrap({
+        if (DebugOutput) {
+            Serial.println("Running extended_test...");
+        }
         volatile int result = 42;
         for (int i = 0; i < 100; ++i) {
             if (DebugOutput) {
