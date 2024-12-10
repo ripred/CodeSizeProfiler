@@ -1,7 +1,7 @@
 # CodeSizeProfiler
 Profiler for embedded programming to dynamically determine function, method, and template sizes (expanded) at compile time.
 
-Function size determinations are a constexpr and thus available at compile time. 
+Function size determinations are a `constexpr` and thus available at compile time. 
 
 This enables many things such as dynamic compile time template expansion that can stop expanding if the methods or functions would take up more room than some configurable threshold.
 
