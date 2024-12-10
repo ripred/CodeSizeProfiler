@@ -9,7 +9,7 @@ long calibration_size = 0; // Store the calibration size globally in the library
 // function to get the nominal overhead
 void calibrate() {
     // Measure a minimal block to get baseline
-    Wrap({}, calibration_size);
+    CodeSize({}, calibration_size)
 }
 
 

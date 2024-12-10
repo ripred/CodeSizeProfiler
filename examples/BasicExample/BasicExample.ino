@@ -3,7 +3,7 @@
 static bool DebugOutput = false;
 
 void foo() {
-    Wrap(
+    CodeSize(
         if (DebugOutput) {
             Serial.println(F("Running foo..."));
         }
@@ -13,11 +13,11 @@ void foo() {
         }
         volatile int result = 42;
         result += 42;
-    );
+    )
 }
 
 void bar() {
-    Wrap(
+    CodeSize(
         if (DebugOutput) {
             Serial.println(F("Running bar..."));
         }
@@ -28,19 +28,19 @@ void bar() {
             }
             result += 42;
         }
-    );
+    )
 }
 
 void minimal() {
-    Wrap(
+    CodeSize(
         if (DebugOutput) {
             Serial.println(F("Running minimal..."));
         }
-    );
+    )
 }
 
 void extended_test() {
-    Wrap(
+    CodeSize(
         if (DebugOutput) {
             Serial.println(F("Running extended_test..."));
         }
@@ -51,14 +51,14 @@ void extended_test() {
             }
             result += random(1, 100000L);
         }
+
         if (result & 1) {
             result *= 2;
         }
         else {
             result /= 2;
         }
-
-    );
+    )
 }
 
 void setup() {

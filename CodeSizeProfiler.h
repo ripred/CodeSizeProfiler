@@ -54,8 +54,8 @@ enum OrderBy_t { Ascending, Descending };
         function_sizes[function_count++] = {__FUNCTION__, temp_size##__COUNTER__}; \
     }
 
-// Main Wrap macro that selects between WRAP_NO_VAR and WRAP_WITH_VAR
-#define Wrap(...) WRAP_SELECT(__VA_ARGS__, WRAP_WITH_VAR, WRAP_NO_VAR)(__VA_ARGS__)
+// Main CodeSize macro that selects between WRAP_NO_VAR and WRAP_WITH_VAR
+#define CodeSize(...) WRAP_SELECT(__VA_ARGS__, WRAP_WITH_VAR, WRAP_NO_VAR)(__VA_ARGS__)
 
 // Reporting function
 void report(Stream &stream, SortBy_t sortby, OrderBy_t orderby = Descending);
