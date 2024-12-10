@@ -68,13 +68,13 @@ void report(Stream &stream, SortBy_t sortby, OrderBy_t orderby) {
         }
     }
 
-    stream.println(F("---------------------------------"));
-    stream.println(F("  Function Memory Usage Report:"));
+    stream.println(F("-----------------------------------"));
+    stream.println(F("  Function Flash Mem Usage Report"));
     stream.print(F("  Calibration Size (bytes): "));
     stream.println(calibration_size);
     stream.print(F("  Total Tracked Functions: "));
     stream.println(function_count);
-    stream.println(F("---------------------------------"));
+    stream.println(F("-----------------------------------"));
 
     char txt[128] = {0};
     stream.println(F("Name                 Size\n"));
@@ -86,7 +86,7 @@ void report(Stream &stream, SortBy_t sortby, OrderBy_t orderby) {
         stream.println(txt);
     }
     
-    stream.println(F("---------------------------------"));
+    stream.println(F("-----------------------------------"));
     stream.println(F("Report Finished."));
 }
 

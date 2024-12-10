@@ -27,11 +27,6 @@ enum OrderBy_t { Ascending, Descending };
 // UNUSED macro to suppress unused variable warnings
 #define UNUSED(A) do { (void)(A); } while(false)
 
-// Debug output macro (enable or disable here)
-#define DEBUG_OUTPUT 0
-#define DebugPrint(msg, value) \
-    do { if (DEBUG_OUTPUT) { Serial.print(msg); Serial.println(value, HEX); } } while (false)
-
 // Internal macros to implement overloading behavior
 #define WRAP_SELECT(_1, _2, NAME, ...) NAME
 
@@ -45,9 +40,6 @@ enum OrderBy_t { Ascending, Descending };
     label##__COUNTER__:                                       \
         VARNAME = abs((long)((intptr_t)&&label##__COUNTER__ - (intptr_t)func_start##__COUNTER__)); \
         function_sizes[function_count++] = {__FUNCTION__, VARNAME}; \
-        DebugPrint("Debug: func_start = ", (intptr_t)func_start##__COUNTER__); \
-        DebugPrint("Debug: label = ", (intptr_t)&&label##__COUNTER__); \
-        DebugPrint("Debug: size (bytes) = ", VARNAME);        \
     }
 
 // Wrap version that only takes CODE and does not require a variable
@@ -60,9 +52,6 @@ enum OrderBy_t { Ascending, Descending };
     label##__COUNTER__:                                       \
         long temp_size##__COUNTER__ = abs((long)((intptr_t)&&label##__COUNTER__ - (intptr_t)func_start##__COUNTER__)); \
         function_sizes[function_count++] = {__FUNCTION__, temp_size##__COUNTER__}; \
-        DebugPrint("Debug: func_start = ", (intptr_t)func_start##__COUNTER__); \
-        DebugPrint("Debug: label = ", (intptr_t)&&label##__COUNTER__); \
-        DebugPrint("Debug: size (bytes) = ", temp_size##__COUNTER__); \
     }
 
 // Main Wrap macro that selects between WRAP_NO_VAR and WRAP_WITH_VAR
