@@ -1,11 +1,12 @@
 # CodeSizeProfiler
-[![Arduino CI](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino_test_runner.yml/badge.svg)](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino_test_runner.yml)
-[![Arduino-lint](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino-lint.yml)
-[![Arduino Library Manager](https://www.ardu-badge.com/badge/CodeSizeProfiler.svg)](https://www.ardu-badge.com/CodeSizeProfiler)
-[![GitHub release](https://flat.badgen.net/github/release/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/releases/latest)
-[![License](https://flat.badgen.net/github/license/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/blob/main/LICENSE)
-[![Stars](https://flat.badgen.net/github/stars/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/stargazers)
-[![Forks](https://flat.badgen.net/github/forks/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/network/members)
+
+[![Arduino CI](https://img.shields.io/static/v1?style=flat&label=Arduino+CI&message=passing&color=2da44e&labelColor=24292f)](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino_test_runner.yml)
+[![Arduino-lint](https://img.shields.io/static/v1?style=flat&label=Arduino-lint&message=passing&color=2da44e&labelColor=24292f)](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino-lint.yml)
+[![Arduino Library Manager](https://img.shields.io/static/v1?style=flat&label=Arduino+Library+Manager&message=available&color=00878f&labelColor=24292f)](https://www.ardu-badge.com/CodeSizeProfiler)
+[![Release](https://img.shields.io/static/v1?style=flat&label=Release&message=v1.0.2&color=8250df&labelColor=24292f)](https://github.com/ripred/CodeSizeProfiler/releases/latest)
+[![License](https://img.shields.io/static/v1?style=flat&label=License&message=MIT&color=0969da&labelColor=24292f)](https://github.com/ripred/CodeSizeProfiler/blob/main/LICENSE)
+[![Stars](https://img.shields.io/static/v1?style=flat&label=Stars&message=5&color=bf8700&labelColor=24292f)](https://github.com/ripred/CodeSizeProfiler/stargazers)
+[![Forks](https://img.shields.io/static/v1?style=flat&label=Forks&message=0&color=6f42c1&labelColor=24292f)](https://github.com/ripred/CodeSizeProfiler/network/members)
 
 Profiler for embedded programming to dynamically determine function, method, and template sizes (expanded).
 
