@@ -1,4 +1,12 @@
 # CodeSizeProfiler
+[![Arduino CI](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino_test_runner.yml/badge.svg)](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino_test_runner.yml)
+[![Arduino-lint](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/ripred/CodeSizeProfiler/actions/workflows/arduino-lint.yml)
+[![Arduino Library Manager](https://www.ardu-badge.com/badge/CodeSizeProfiler.svg)](https://www.ardu-badge.com/CodeSizeProfiler)
+[![GitHub release](https://flat.badgen.net/github/release/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/releases/latest)
+[![License](https://flat.badgen.net/github/license/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/blob/main/LICENSE)
+[![Stars](https://flat.badgen.net/github/stars/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/stargazers)
+[![Forks](https://flat.badgen.net/github/forks/ripred/CodeSizeProfiler)](https://github.com/ripred/CodeSizeProfiler/network/members)
+
 Profiler for embedded programming to dynamically determine function, method, and template sizes (expanded).
 
 Generates a report of how much flash memory all monitored functions occupy. Very useful for profiling several versions of an implementation for a function, and then selecting the one that requires the smallest amount of flash memory.
